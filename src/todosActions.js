@@ -1,8 +1,11 @@
 import shortId from 'shortid';
+import {
+	ADD_TODO, COMPLETE_TODO, REMOVE_TODO, EDIT_TODO,
+} from './constants/ActionTypes';
 
 export function add(task, isCompleted = false) {
 	return {
-		type: 'ADD',
+		type: ADD_TODO,
 		payload: {
 			id: shortId.generate(),
 			isCompleted,
@@ -13,7 +16,7 @@ export function add(task, isCompleted = false) {
 
 export function complete(id, isCompleted) {
 	return {
-		type: 'COMPLETE',
+		type: COMPLETE_TODO,
 		payload: {
 			id,
 			isCompleted,
@@ -23,7 +26,7 @@ export function complete(id, isCompleted) {
 
 export function edit(id, task) {
 	return {
-		type: 'EDIT',
+		type: EDIT_TODO,
 		payload: {
 			id,
 			task,
@@ -33,7 +36,7 @@ export function edit(id, task) {
 
 export function remove(id) {
 	return {
-		type: 'REMOVE',
+		type: REMOVE_TODO,
 		payload: {
 			id,
 		},

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {ENTER} from '../constants/KeyboardKeys';
 import {add} from '../todosActions';
 import './NewToDo.css';
 
@@ -31,7 +32,7 @@ class NewToDo extends React.Component {
 	}
 	
 	handleKeyDown = event => {
-		if (event.keyCode === 13 && this.state.editedTask.length > 0) {
+		if (event.keyCode === ENTER && this.state.editedTask.length > 0) {
 			this.props.addTodo(this.state.editedTask);
 			this.setState({editedTask: ''});
 		}

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import {connect} from 'react-redux';
+import {ENTER, ESC} from '../constants/KeyboardKeys';
 import {complete, edit, remove} from '../todosActions';
 import './ToDosListItem.css';
 
@@ -66,14 +67,14 @@ class ToDosListItem extends React.Component {
 	}
 	
 	handleKeyDown = event => {
-		if (event.keyCode === 13) {
+		if (event.keyCode === ENTER) {
 			if (this.state.editedTask.length > 0) {
 				this.setState({isBeingEdited: false});
 				this.props.editTodo(this.props.id, this.state.editedTask);
 			} else {
 				this.props.removeTodo(this.props.id);
 			}
-		} else if (event.keyCode === 27) {
+		} else if (event.keyCode === ESC) {
 			this.setState({
 				isBeingEdited: false,
 			});
