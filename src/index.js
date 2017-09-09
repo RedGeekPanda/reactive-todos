@@ -8,7 +8,10 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './todosReducer';
 
-ReactDOM.render(<Provider store={createStore(reducer, applyMiddleware(logger))}>
-	<App/>
-</Provider>, document.getElementById('root'));
+const store = process.env.NODE_ENV === `development` ?
+	createStore(reducer, applyMiddleware(logger)) :
+	createStore(reducer);
+
+ReactDOM.render(<Provider store={store}><App/></Provider>,
+	document.getElementById('root'));
 registerServiceWorker();

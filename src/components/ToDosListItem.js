@@ -2,19 +2,19 @@ import classNames from 'classnames';
 import React from 'react';
 import {connect} from 'react-redux';
 import {ENTER, ESC} from '../constants/KeyboardKeys';
-import {complete, edit, remove} from '../todosActions';
+import {completeTodo, editTodo, removeTodo} from '../todosActions';
 import './ToDosListItem.css';
 
 function mapDispatchToProps(dispatch) {
 	return {
 		completeTodo: id => {
-			dispatch(complete(id));
+			dispatch(completeTodo(id));
 		},
 		editTodo: (id, task) => {
-			dispatch(edit(id, task));
+			dispatch(editTodo(id, task));
 		},
 		removeTodo: id => {
-			dispatch(remove(id));
+			dispatch(removeTodo(id));
 		},
 	};
 }
@@ -30,23 +30,19 @@ class ToDosListItem extends React.Component {
 	renderTask() {
 		return this.state.isBeingEdited ? (
 			<input className="ToDosListItem-task edited" type="text"
-			       value={this.state.editedTask}
 			       autoFocus
-			       onFocus={event => {
-				       let value = event.target.value;
-				       event.target.value = '';
-				       event.target.value = value;
+			       onFocus={({target}) => {
+				       target.value = this.props.task;
 			       }}
-			       onBlur={() => this.setState({isBeingEdited: false})}
-			       onChange={event => this.setState(
-				       {editedTask: event.target.value})}
+			       onBlur={() => this.setState({
+				       isBeingEdited: false,
+			       })}
 			       onKeyDown={this.handleKeyDown}/>
 		) : (
 			<text className={classNames('ToDosListItem-task', 'showed',
-				{'completed': this.props.isCompleted})}
+				{'completed': this.props.isCompleted,})}
 			      onClick={() => this.setState({
 				      isBeingEdited: true,
-				      editedTask: this.props.task,
 			      })}>
 				{this.props.task}
 			</text>
@@ -66,15 +62,17 @@ class ToDosListItem extends React.Component {
 		);
 	}
 	
-	handleKeyDown = event => {
-		if (event.keyCode === ENTER) {
-			if (this.state.editedTask.length > 0) {
-				this.setState({isBeingEdited: false});
-				this.props.editTodo(this.props.id, this.state.editedTask);
+	handleKeyDown = ({keyCode, target}) => {
+		if (keyCode === ENTER) {
+			if (target.value) {
+				this.props.editTodo(this.props.id, target.value);
+				this.setState({
+					isBeingEdited: false,
+				});
 			} else {
 				this.props.removeTodo(this.props.id);
 			}
-		} else if (event.keyCode === ESC) {
+		} else if (keyCode === ESC) {
 			this.setState({
 				isBeingEdited: false,
 			});

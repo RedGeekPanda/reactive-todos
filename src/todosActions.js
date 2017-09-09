@@ -3,7 +3,7 @@ import {
 	ADD_TODO, COMPLETE_TODO, REMOVE_TODO, EDIT_TODO,
 } from './constants/ActionTypes';
 
-export function add(task, isCompleted = false) {
+export function addTodo(task, isCompleted = false) {
 	return {
 		type: ADD_TODO,
 		payload: {
@@ -14,7 +14,7 @@ export function add(task, isCompleted = false) {
 	};
 }
 
-export function complete(id, isCompleted) {
+export function completeTodo(id, isCompleted) {
 	return {
 		type: COMPLETE_TODO,
 		payload: {
@@ -24,7 +24,7 @@ export function complete(id, isCompleted) {
 	};
 }
 
-export function edit(id, task) {
+export function editTodo(id, task) {
 	return {
 		type: EDIT_TODO,
 		payload: {
@@ -34,7 +34,7 @@ export function edit(id, task) {
 	};
 }
 
-export function remove(id) {
+export function removeTodo(id) {
 	return {
 		type: REMOVE_TODO,
 		payload: {
