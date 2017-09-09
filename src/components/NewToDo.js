@@ -1,27 +1,41 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {add} from '../todosActions';
 import './NewToDo.css';
 
-export default class NewToDo extends React.Component {
+function mapDispatchToProps(dispatch) {
+	return {
+		addTodo: task => {
+			dispatch(add(task));
+		},
+	};
+}
+
+class NewToDo extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {task: ''};
-		this.handleKeyDown = this.handleKeyDown.bind(this);
+		this.state = {editedTask: ''};
 	}
-
+	
 	render() {
 		return (
 			<div className="NewToDo">
-				<input className="NewToDo" type="text" value={this.state.task} placeholder="What needs to be done?"
-				       onChange={event => this.setState({task: event.target.value})}
-				       onKeyDown={this.handleKeyDown.bind(this)}/>
+				<input className="NewToDo" type="text"
+				       value={this.state.editedTask}
+				       placeholder="What needs to be done?"
+				       onChange={event => this.setState(
+					       {editedTask: event.target.value})}
+				       onKeyDown={this.handleKeyDown}/>
 			</div>
 		);
 	}
-
-	handleKeyDown(event) {
-		if(event.keyCode === 13 && this.state.task.length > 0) {
-			this.props.handleAdd(this.state.task);
-			this.setState({task: ''});
+	
+	handleKeyDown = event => {
+		if (event.keyCode === 13 && this.state.editedTask.length > 0) {
+			this.props.addTodo(this.state.editedTask);
+			this.setState({editedTask: ''});
 		}
-	}
+	};
 }
+
+export default connect(undefined, mapDispatchToProps)(NewToDo);
