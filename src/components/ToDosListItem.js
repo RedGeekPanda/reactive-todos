@@ -1,25 +1,9 @@
 import classNames from 'classnames';
 import React from 'react';
-import {connect} from 'react-redux';
 import {ENTER, ESC} from '../constants/KeyboardKeys';
-import {completeTodo, editTodo, removeTodo} from '../todosActions';
 import './ToDosListItem.css';
 
-function mapDispatchToProps(dispatch) {
-	return {
-		completeTodo: id => {
-			dispatch(completeTodo(id));
-		},
-		editTodo: (id, task) => {
-			dispatch(editTodo(id, task));
-		},
-		removeTodo: id => {
-			dispatch(removeTodo(id));
-		},
-	};
-}
-
-class ToDosListItem extends React.Component {
+export default class ToDosListItem extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -79,5 +63,3 @@ class ToDosListItem extends React.Component {
 		}
 	};
 }
-
-export default connect(undefined, mapDispatchToProps)(ToDosListItem);

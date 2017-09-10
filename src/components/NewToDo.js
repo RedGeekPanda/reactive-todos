@@ -1,18 +1,8 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {ENTER} from '../constants/KeyboardKeys';
-import {addTodo} from '../todosActions';
 import './NewToDo.css';
 
-function mapDispatchToProps(dispatch) {
-	return {
-		addTodo: task => {
-			dispatch(addTodo(task));
-		},
-	};
-}
-
-class NewToDo extends React.Component {
+export default class NewToDo extends React.Component {
 	render() {
 		return (
 			<div className="NewToDo">
@@ -30,5 +20,3 @@ class NewToDo extends React.Component {
 		}
 	};
 }
-
-export default connect(undefined, mapDispatchToProps)(NewToDo);

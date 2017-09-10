@@ -1,6 +1,6 @@
 import shortId from 'shortid';
 import {
-	ADD_TODO, COMPLETE_TODO, REMOVE_TODO, EDIT_TODO,
+	ADD_TODO, COMPLETE_TODO, EDIT_TODO, REMOVE_TODO,
 } from './constants/ActionTypes';
 
 export function addTodo(task, isCompleted = false) {
